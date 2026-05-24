@@ -1,6 +1,0 @@
-{
-  "name": "Mini CRM Blueprint",
-  "description": "Interactive architectural blueprint and fully functional React frontend client for a Clean Architecture .NET / PostgreSQL mini-CRM with SignalR simulation.",
-  "requestFramePermissions": [],
-  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
-}
