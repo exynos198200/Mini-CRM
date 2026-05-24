@@ -9,21 +9,21 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 
 # Копируем файлы проектов для восстановления зависимостей
-COPY ["src/Domain/Domain.csproj", "src/Domain/"]
-COPY ["src/Application/Application.csproj", "src/Application/"]
-COPY ["src/Infrastructure/Infrastructure.csproj", "src/Infrastructure/"]
-COPY ["src/WebAPI/WebAPI.csproj", "src/WebAPI/"]
+COPY ["backend/Domain/Domain.csproj", "backend/Domain/"]
+COPY ["backend/Application/Application.csproj", "backend/Application/"]
+COPY ["backend/Infrastructure/Infrastructure.csproj", "backend/Infrastructure/"]
+COPY ["backend/WebAPI/WebAPI.csproj", "backend/WebAPI/"]
 COPY ["MiniCrm.sln", "./"]
 
 RUN dotnet restore "MiniCrm.sln"
 
 # Копируем оставшийся исходный код
-COPY ["src/Domain/", "src/Domain/"]
-COPY ["src/Application/", "src/Application/"]
-COPY ["src/Infrastructure/", "src/Infrastructure/"]
-COPY ["src/WebAPI/", "src/WebAPI/"]
+COPY ["backend/Domain/", "backend/Domain/"]
+COPY ["backend/Application/", "backend/Application/"]
+COPY ["backend/Infrastructure/", "backend/Infrastructure/"]
+COPY ["backend/WebAPI/", "backend/WebAPI/"]
 
-WORKDIR "/src/src/WebAPI"
+WORKDIR "/backend/backend/WebAPI"
 RUN dotnet build "WebAPI.csproj" -c Release -o /app/build
 
 # Stage 3: Publish App

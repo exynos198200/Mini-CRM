@@ -69,7 +69,7 @@ CREATE INDEX IF NOT EXISTS idx_leads_name_trgm ON leads USING gin (name gin_trgm
       description: "Глобальный файл .NET 8 Solution, объединяющий все проекты"
     },
     {
-      name: "src/Domain (Доменный слой)",
+      name: "backend/Domain (Доменный слой)",
       type: "dir",
       path: "/Domain",
       description: "Ядро системы. Не зависит ни от каких других библиотек и внешних фреймворков. Содержит сущности бизнеса.",
@@ -80,7 +80,7 @@ CREATE INDEX IF NOT EXISTS idx_leads_name_trgm ON leads USING gin (name gin_trgm
       ]
     },
     {
-      name: "src/Application (Прикладной слой)",
+      name: "backend/Application (Прикладной слой)",
       type: "dir",
       path: "/Application",
       description: "Бизнес-правила (use-cases). Содержит DTO, Commands, Queries, интерфейсы портов, MediatR хэндлеры.",
@@ -94,7 +94,7 @@ CREATE INDEX IF NOT EXISTS idx_leads_name_trgm ON leads USING gin (name gin_trgm
       ]
     },
     {
-      name: "src/Infrastructure (Инфраструктурный слой)",
+      name: "backend/Infrastructure (Инфраструктурный слой)",
       type: "dir",
       path: "/Infrastructure",
       description: "Реализация интерфейсов прикладного слоя. Доступ к PostgreSQL через Entity Framework Core, отправка почты, шифрование.",
@@ -106,7 +106,7 @@ CREATE INDEX IF NOT EXISTS idx_leads_name_trgm ON leads USING gin (name gin_trgm
       ]
     },
     {
-      name: "src/WebAPI (Презентационный слой)",
+      name: "backend/WebAPI (Презентационный слой)",
       type: "dir",
       path: "/WebAPI",
       description: "Точка входа .NET 8. Отвечает за прием HTTP-запросов, обработку CORS, SignalR хабы, Swagger документацию.",
@@ -291,7 +291,7 @@ services:
     restart: always
     build:
       context: .
-      dockerfile: src/WebAPI/Dockerfile
+      dockerfile: backend/WebAPI/Dockerfile
     ports:
       - "5000:80"
     environment:
