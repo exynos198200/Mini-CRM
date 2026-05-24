@@ -1,0 +1,49 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: minicrm_postgres_db
+    restart: always
+    environment:
+      # Настройки базы данных (измените пароли для использования в Production)
+      POSTGRES_DB: minicrm_db
+      POSTGRES_USER: crm_admin
+      POSTGRES_PASSWORD: SecretStrongPassword_2026
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U crm_admin -d minicrm_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - crm_network
+
+  webapi:
+    image: company/minicrm-api:latest
+    container_name: minicrm_dotnet_api
+    restart: always
+    build:
+      context: .
+      dockerfile: src/WebAPI/Dockerfile
+    ports:
+      - "5000:80"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      # Строка подключения использует хост 'db' для связи через изолированную crm_network
+      - ConnectionStrings__DefaultConnection=Host=db;Port=5432;Database=minicrm_db;Username=crm_admin;Password=SecretStrongPassword_2026
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - crm_network
+
+volumes:
+  postgres_data:
+
+networks:
+  crm_network:
+    driver: bridge
