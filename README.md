@@ -61,7 +61,7 @@
   </tr>
   <tr>
     <td align="center">
-      <img src="imagine/769.14.jpeg" width="300" />
+      <img src="imagine/76914.jpeg" width="300" />
       <br>Описание третьего скрина
     </td>
     <td align="center">
